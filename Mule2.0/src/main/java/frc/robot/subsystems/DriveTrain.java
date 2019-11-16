@@ -8,6 +8,7 @@
 package frc.robot.subsystems;
 
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -31,6 +32,12 @@ public class DriveTrain extends Subsystem {
     r2.follow(r1);
 
     r1.setInverted(true);
+
+    r1.setIdleMode(IdleMode.kCoast);
+    l1.setIdleMode(IdleMode.kCoast);
+    r2.setIdleMode(IdleMode.kCoast);
+    l2.setIdleMode(IdleMode.kCoast);
+
 
   }
 

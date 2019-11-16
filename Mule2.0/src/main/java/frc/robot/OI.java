@@ -18,11 +18,11 @@ public class OI {
   public VortxController main = new VortxController(0);
 
   public double getDriveValue() {
-    return -(main.getTriggerAxis(Hand.kRight) - main.getTriggerAxis(Hand.kLeft));
+    return (main.getTriggerAxis(Hand.kRight) - main.getTriggerAxis(Hand.kLeft));
  }
 
  public double getTurnValue() {
-    return main.getX(Hand.kLeft);
+    return -main.getX(Hand.kLeft);
  }
   //// CREATING BUTTONS
   // One type of button is a joystick button which is any button on a

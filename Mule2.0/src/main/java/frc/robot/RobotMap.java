@@ -15,10 +15,10 @@ package frc.robot;
  */
 public class RobotMap {
   public class Drive{
-    public static final int l1 = 1;
-    public static final int l2 = 2;
-    public static final int r1 = 3;
-    public static final int r2 = 4;
+    public static final int l1 = 15;
+    public static final int l2 = 14;
+    public static final int r1 = 12;
+    public static final int r2 = 13;
 
 
   }
