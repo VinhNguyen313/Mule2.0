@@ -5,15 +5,13 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands;
+package frc.robot.commands.drive;
 
 import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
-import frc.robot.util.VortxMath;
 
-public class ArcadeDrive extends Command {
-  public ArcadeDrive() {
+public class NormalDrive extends Command {
+  public NormalDrive() {
     requires(Robot.drive);
   }
 
@@ -25,40 +23,10 @@ public class ArcadeDrive extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-
-    double leftSpeed;
-    double rightSpeed;
-
-    double move = VortxMath.applyDeadband(Robot.oi.getDriveValue(), .02);
-    double rotate = VortxMath.applyDeadband(Robot.oi.getTurnValue(), .02);
-
-    move = Math.copySign(move * move, move);
-    rotate = Math.copySign(rotate * rotate, rotate);
-
-    double maxInput = Math.copySign(Math.max(Math.abs(move), Math.abs(rotate)), move);
-
-    if (move >= 0.0) {
-      if (rotate >= 0.0) {
-        leftSpeed = maxInput;
-        rightSpeed = move - rotate;
-      } else {
-        leftSpeed = move + rotate;
-        rightSpeed = maxInput;
-      }
-    } else {
-      if (rotate >= 0.0) {
-        leftSpeed = move + rotate;
-        rightSpeed = maxInput;
-      } else {
-        leftSpeed = maxInput;
-        rightSpeed = move - rotate;
-      }
-    }
-    SmartDashboard.putNumber("Left Speed", leftSpeed);
-    Robot.drive.setLeft(leftSpeed);
-
-    SmartDashboard.putNumber("Right Speed", rightSpeed);
-    Robot.drive.setRight(rightSpeed);
+      double move = Robot.oi.getDriveValue();
+      double turn = Robot.oi.getTurnValue();
+      Robot.drive.setLeft(move+turn);
+      Robot.drive.setRight(move-turn);
   }
 
   // Make this return true when this Command no longer needs to run execute()

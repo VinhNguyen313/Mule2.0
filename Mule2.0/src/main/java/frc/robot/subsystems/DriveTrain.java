@@ -7,13 +7,17 @@
 
 package frc.robot.subsystems;
 
+import com.revrobotics.CANEncoder;
+import com.revrobotics.CANPIDController;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.RobotMap;
-import frc.robot.commands.ArcadeDrive;
+import frc.robot.commands.drive.ArcadeDrive;
+import frc.robot.commands.drive.NormalDrive;
 
 public class DriveTrain extends Subsystem {
 
@@ -21,6 +25,11 @@ public class DriveTrain extends Subsystem {
   private CANSparkMax l2;
   private CANSparkMax r1;
   private CANSparkMax r2;
+
+  private CANPIDController pid;
+
+  private CANEncoder leftEnc;
+  private CANEncoder rightEnc;
 
   public DriveTrain() {
     l1 = new CANSparkMax(RobotMap.Drive.l1, MotorType.kBrushless);
@@ -30,6 +39,7 @@ public class DriveTrain extends Subsystem {
 
     l2.follow(l1);
     r2.follow(r1);
+  
 
     r1.setInverted(true);
 
@@ -39,11 +49,16 @@ public class DriveTrain extends Subsystem {
     l2.setIdleMode(IdleMode.kCoast);
 
 
+    pid = l1.getPIDController();
+
+    leftEnc = l1.getEncoder();
+    rightEnc = r1.getEncoder();
   }
 
   @Override
   public void initDefaultCommand() {
     setDefaultCommand(new ArcadeDrive());
+    // setDefaultCommand(new NormalDrive());
   }
 
   public void setLeft(double speed){
@@ -52,6 +67,11 @@ public class DriveTrain extends Subsystem {
 
   public void setRight(double speed){
     r1.set(speed);
+  }
+
+  public void log(){
+    SmartDashboard.putNumber("Left Rotations", leftEnc.getPosition());
+    SmartDashboard.putNumber("Right Rotations", rightEnc.getPosition());
   }
 
 }
