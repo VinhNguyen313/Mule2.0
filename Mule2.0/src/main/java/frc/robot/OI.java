@@ -9,6 +9,7 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID.Hand;
 import frc.robot.util.VortxController;
+import frc.robot.util.VortxMath;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -18,10 +19,10 @@ public class OI {
   public VortxController main = new VortxController(0);
 
   public double getDriveValue() {
-    return (main.getTriggerAxis(Hand.kRight) - main.getTriggerAxis(Hand.kLeft));
+    return -VortxMath.applyDeadband(main.getTriggerAxis(Hand.kRight) - main.getTriggerAxis(Hand.kLeft), .2);
  }
 
  public double getTurnValue() {
-    return -main.getX(Hand.kLeft);
+    return -VortxMath.applyDeadband(main.getX(Hand.kLeft),.2);
  }
 }
