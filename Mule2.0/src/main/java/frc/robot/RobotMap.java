@@ -17,8 +17,8 @@ public class RobotMap {
   public class Drive{
     public static final int l1 = 15;
     public static final int l2 = 14;
-    public static final int r1 = 0;
-    public static final int r2 = 1;
+    public static final int r1 = 2;
+    public static final int r2 = 3;
 
 
   }

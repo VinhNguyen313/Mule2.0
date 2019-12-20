@@ -8,7 +8,9 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID.Hand;
+import frc.robot.commands.DriveToAngle;
 import frc.robot.util.VortxController;
+import frc.robot.util.VortxMath;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -17,11 +19,14 @@ import frc.robot.util.VortxController;
 public class OI {
   public VortxController main = new VortxController(0);
 
+  public OI(){
+   //   main.a.whenPressed(new DriveToAngle(90));
+  }
   public double getDriveValue() {
-    return (main.getTriggerAxis(Hand.kRight) - main.getTriggerAxis(Hand.kLeft));
+    return VortxMath.applyDeadband(main.getTriggerAxis(Hand.kRight) - main.getTriggerAxis(Hand.kLeft), .1);
  }
 
  public double getTurnValue() {
-    return -main.getX(Hand.kLeft);
+    return VortxMath.applyDeadband(-main.getX(Hand.kLeft), .1);
  }
 }
