@@ -23,10 +23,18 @@ public class OI {
    //   main.a.whenPressed(new DriveToAngle(90));
   }
   public double getDriveValue() {
+<<<<<<< HEAD
     return VortxMath.applyDeadband(main.getTriggerAxis(Hand.kRight) - main.getTriggerAxis(Hand.kLeft), .1);
  }
 
  public double getTurnValue() {
     return VortxMath.applyDeadband(-main.getX(Hand.kLeft), .1);
+=======
+    return -VortxMath.applyDeadband(main.getTriggerAxis(Hand.kRight) - main.getTriggerAxis(Hand.kLeft), .2);
+ }
+
+ public double getTurnValue() {
+    return -VortxMath.applyDeadband(main.getX(Hand.kLeft),.2);
+>>>>>>> master
  }
 }

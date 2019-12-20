@@ -57,8 +57,8 @@ public class DriveTrain extends Subsystem {
 
   @Override
   public void initDefaultCommand() {
-    setDefaultCommand(new ArcadeDrive());
-    // setDefaultCommand(new NormalDrive());
+    // setDefaultCommand(new ArcadeDrive());
+    setDefaultCommand(new NormalDrive());
   }
 
   public void setLeft(double speed){
