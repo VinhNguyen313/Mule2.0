@@ -21,14 +21,14 @@ import frc.robot.commands.drive.NormalDrive;
 
 public class DriveTrain extends Subsystem {
 
-  private CANSparkMax l1;
-  private CANSparkMax l2;
-  private CANSparkMax r1;
-  private CANSparkMax r2;
+  public CANSparkMax l1;
+  public CANSparkMax l2;
+  public CANSparkMax r1;
+  public CANSparkMax r2;
 
-  private CANPIDController pid;
+  public CANPIDController pid;
 
-  private CANEncoder leftEnc;
+  public CANEncoder leftEnc;
   private CANEncoder rightEnc;
 
   public DriveTrain() {
@@ -43,10 +43,10 @@ public class DriveTrain extends Subsystem {
 
     r1.setInverted(true);
 
-    r1.setIdleMode(IdleMode.kCoast);
-    l1.setIdleMode(IdleMode.kCoast);
-    r2.setIdleMode(IdleMode.kCoast);
-    l2.setIdleMode(IdleMode.kCoast);
+    r1.setIdleMode(IdleMode.kBrake);
+    l1.setIdleMode(IdleMode.kBrake);
+    r2.setIdleMode(IdleMode.kBrake);
+    l2.setIdleMode(IdleMode.kBrake);
 
 
     pid = l1.getPIDController();
@@ -68,10 +68,13 @@ public class DriveTrain extends Subsystem {
   public void setRight(double speed){
     r1.set(speed);
   }
-
+  public void zeroEncoders(){
+    leftEnc.setPosition(0);
+    rightEnc.setPosition(0);
+  }
   public void log(){
-    SmartDashboard.putNumber("Left Rotations", leftEnc.getPosition());
-    SmartDashboard.putNumber("Right Rotations", rightEnc.getPosition());
+    SmartDashboard.putNumber("Left Rotations", leftEnc.getPosition()/RobotMap.Constants.inchesPerRotation);
+    SmartDashboard.putNumber("Right Rotations", rightEnc.getPosition()/RobotMap.Constants.inchesPerRotation);
   }
 
 }

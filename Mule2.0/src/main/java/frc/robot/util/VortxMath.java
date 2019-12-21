@@ -11,7 +11,7 @@ package frc.robot.util;
  * Add your docs here.
  */
 public class VortxMath {
-    // Copied from WPI's RobotBase
+  // Copied from WPI's RobotBase
   /**
    * Returns 0.0 if the given value is within the specified range around zero. The
    * remaining range between the deadband and 1.0 is scaled from 0.0 to 1.0.
@@ -29,5 +29,24 @@ public class VortxMath {
     } else {
       return 0.0;
     }
+  }
+
+  /**
+   * limits a value to a certain range
+   * 
+   * @param value the value to limit with the bounds
+   * @param lower the lower bound
+   * @param upper the upper bound
+   */
+  public static double limit(double value, double lower, double upper) {
+    if (lower > upper) {
+      System.out.println("Vortx Math Limit Error");
+    }
+    if (value < lower) {
+      value = lower;
+    } else if (value > upper) {
+      value = upper;
+    }
+    return value;
   }
 }

@@ -5,67 +5,48 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands;
+package frc.robot.commands.drive;
 
-import com.kauailabs.navx.frc.AHRS;
+import com.revrobotics.ControlType;
 
-import edu.wpi.first.wpilibj.PIDController;
-import edu.wpi.first.wpilibj.PIDOutput;
 import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.SPI;
 import frc.robot.Robot;
+import frc.robot.RobotMap;
 
-public class DriveToAngle extends Command {
-  
-  double rotateToAngleRate;
-  double targetAngleDegrees;
-  PIDController turnController;
+public class DriveToPosition extends Command {
+  double target;
 
-
-  public DriveToAngle(double angle) {
+  public DriveToPosition(double target) {
     requires(Robot.drive);
-    targetAngleDegrees = angle;
-    turnController = new PIDController(.0028, 0.0, 0.002, 0.0, Robot.navx.ahrs, new PIDOutput(){
-    
-      @Override
-      public void pidWrite(double output) {
-        rotateToAngleRate = output;
-        
-      }
-    });
-    turnController.setInputRange(-180.0f,  180.0f);
-    turnController.setOutputRange(-.3, .3);
-    turnController.setAbsoluteTolerance(2);//degrees
-    turnController.setContinuous(true);
-    turnController.disable();
+    this.target = target;
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    Robot.navx.ahrs.zeroYaw();
-    turnController.setSetpoint(targetAngleDegrees);
-    turnController.enable();
+
+    
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Robot.drive.setLeft(rotateToAngleRate);
-    Robot.drive.setRight(-rotateToAngleRate);
-
+    Robot.drive.pid.setReference(target, ControlType.kPosition);
+ 
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return turnController.onTarget()|| Math.abs(Robot.oi.getDriveValue())>.2 || Math.abs(Robot.oi.getTurnValue())>.2 ;
+    boolean a = Math.abs((Robot.drive.leftEnc.getPosition() - target)
+    /RobotMap.Constants.inchesPerRotation)<=2;
+    return a || Math.abs(Robot.oi.getDriveValue())>.2 || Math.abs(Robot.oi.getTurnValue())>.2 ;
+
   }
 
   // Called once after isFinished returns true
   @Override
   protected void end() {
-    turnController.disable();
   }
 
   // Called when another command which requires one or more of the same

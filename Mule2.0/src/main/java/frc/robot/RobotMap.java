@@ -14,16 +14,14 @@ package frc.robot;
  * floating around.
  */
 public class RobotMap {
+  public class Constants{
+    public static final double inchesPerRotation = .270804;
+  }
   public class Drive{
     public static final int l1 = 15;
     public static final int l2 = 14;
-<<<<<<< HEAD
     public static final int r1 = 2;
     public static final int r2 = 3;
-=======
-    public static final int r2 = 3;
-    public static final int r1 = 2;
->>>>>>> master
 
 
   }
