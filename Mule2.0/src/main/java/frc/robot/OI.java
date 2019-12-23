@@ -11,7 +11,7 @@ import edu.wpi.first.wpilibj.GenericHID.Hand;
 import frc.robot.commands.DriveToAngle;
 import frc.robot.util.VortxController;
 import frc.robot.util.VortxMath;
-import frc.robot.commands.drive.ZeroEncoders;
+import frc.robot.commands.ZeroEncoders;
 import frc.robot.commands.drive.lol;
 
 /**
@@ -28,14 +28,11 @@ public class OI {
    }
 
    public double getDriveValue() {
-      double value = -VortxMath.applyDeadband(main.getTriggerAxis(Hand.kRight) - main.getTriggerAxis(Hand.kLeft), .2);
-      double output = Math.abs(value) >= .2 ? Math.copySign(.2, value) : value;
-      return output;
+      return VortxMath.limit(
+            -VortxMath.applyDeadband(main.getTriggerAxis(Hand.kRight) - main.getTriggerAxis(Hand.kLeft), .2), -.2, .2);
    }
 
    public double getTurnValue() {
-      double value = VortxMath.applyDeadband(main.getX(Hand.kLeft), .2);
-      double output = Math.abs(value) >= .2 ? Math.copySign(.2, value) : value;
-      return output;
+      return VortxMath.limit(VortxMath.applyDeadband(main.getX(Hand.kLeft), .2), -.2, .2);
    }
 }

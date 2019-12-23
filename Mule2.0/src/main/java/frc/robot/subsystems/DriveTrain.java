@@ -39,7 +39,6 @@ public class DriveTrain extends Subsystem {
 
     l2.follow(l1);
     r2.follow(r1);
-  
 
     r1.setInverted(true);
 
@@ -48,11 +47,16 @@ public class DriveTrain extends Subsystem {
     r2.setIdleMode(IdleMode.kBrake);
     l2.setIdleMode(IdleMode.kBrake);
 
-
     pid = l1.getPIDController();
 
     leftEnc = l1.getEncoder();
     rightEnc = r1.getEncoder();
+
+    l1.setSmartCurrentLimit(40);
+    l2.setSmartCurrentLimit(40);
+    r1.setSmartCurrentLimit(40);
+    r2.setSmartCurrentLimit(40);
+
   }
 
   @Override
@@ -61,20 +65,22 @@ public class DriveTrain extends Subsystem {
     setDefaultCommand(new NormalDrive());
   }
 
-  public void setLeft(double speed){
+  public void setLeft(double speed) {
     l1.set(speed);
   }
 
-  public void setRight(double speed){
+  public void setRight(double speed) {
     r1.set(speed);
   }
-  public void zeroEncoders(){
+
+  public void zeroEncoders() {
     leftEnc.setPosition(0);
     rightEnc.setPosition(0);
   }
-  public void log(){
-    SmartDashboard.putNumber("Left Rotations", leftEnc.getPosition()/RobotMap.Constants.inchesPerRotation);
-    SmartDashboard.putNumber("Right Rotations", rightEnc.getPosition()/RobotMap.Constants.inchesPerRotation);
+
+  public void log() {
+    SmartDashboard.putNumber("Left Rotations", leftEnc.getPosition() / RobotMap.Constants.inchesPerRotation);
+    SmartDashboard.putNumber("Right Rotations", rightEnc.getPosition() / RobotMap.Constants.inchesPerRotation);
   }
 
 }
