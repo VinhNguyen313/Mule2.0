@@ -5,13 +5,15 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.drive;
+package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
+import frc.robot.RobotMap;
 
-public class DriveStraight extends Command {
-  public DriveStraight() {
+public class NormalDrive extends Command {
+
+  public NormalDrive() {
     requires(Robot.drive);
   }
 
@@ -23,8 +25,18 @@ public class DriveStraight extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Robot.drive.setLeft(.4);
-    Robot.drive.setRight(.4);
+    double move = Robot.oi.getDriveValue();
+    double turn = Robot.oi.getTurnValue();
+
+    Robot.drive.r1.setOpenLoopRampRate(RobotMap.Constants.rampRate);
+    Robot.drive.l1.setOpenLoopRampRate(RobotMap.Constants.rampRate);
+    if (move == 0) {
+      Robot.drive.r1.setOpenLoopRampRate(0);
+      Robot.drive.l1.setOpenLoopRampRate(0);
+    }
+
+    Robot.drive.setRight(move - turn);
+    Robot.drive.setLeft(move + turn);
   }
 
   // Make this return true when this Command no longer needs to run execute()
@@ -36,6 +48,8 @@ public class DriveStraight extends Command {
   // Called once after isFinished returns true
   @Override
   protected void end() {
+    Robot.drive.setLeft(0);
+    Robot.drive.setRight(0);
   }
 
   // Called when another command which requires one or more of the same

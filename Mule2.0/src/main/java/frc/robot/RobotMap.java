@@ -15,7 +15,9 @@ package frc.robot;
  */
 public class RobotMap {
   public class Constants{
-    public static final double inchesPerRotation = .270804;
+    public static final double inchesPerRotation = 3.8457;
+    public static final double rampRate = 2.5;
+
   }
   public class Drive{
     public static final int l1 = 15;

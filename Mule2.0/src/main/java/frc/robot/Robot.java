@@ -23,6 +23,7 @@ public class Robot extends TimedRobot {
   public static OI oi;
   public static DriveTrain drive;
   public static frc.robot.subsystems.NavX navx;
+
   /**
    * This function is run when the robot is first started up and should be
    * used for any initialization code.

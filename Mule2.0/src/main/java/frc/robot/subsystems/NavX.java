@@ -13,20 +13,18 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.SPI;
 
-
 /**
  * Add your docs here.
  */
 public class NavX extends Subsystem {
-  // Put methods for controlling this subsystem
-  // here. Call these from Commands.
+ 
   public AHRS ahrs = new AHRS(SPI.Port.kMXP);
+
   @Override
   public void initDefaultCommand() {
-    // Set the default command for a subsystem here.
-    // setDefaultCommand(new MySpecialCommand());
   }
-  public void log(){
-   SmartDashboard.putNumber("Yaw Angle", ahrs.getYaw());
+
+  public void log() {
+    SmartDashboard.putNumber("Yaw Angle", ahrs.getYaw());
   }
 }

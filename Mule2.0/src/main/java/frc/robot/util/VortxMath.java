@@ -11,6 +11,7 @@ package frc.robot.util;
  * Add your docs here.
  */
 public class VortxMath {
+
   // Copied from WPI's RobotBase
   /**
    * Returns 0.0 if the given value is within the specified range around zero. The
