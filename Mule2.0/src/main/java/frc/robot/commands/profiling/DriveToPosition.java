@@ -12,14 +12,12 @@ import edu.wpi.first.wpilibj.PIDOutput;
 import edu.wpi.first.wpilibj.PIDSource;
 import edu.wpi.first.wpilibj.PIDSourceType;
 import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
 import frc.robot.RobotMap;
 
 public class DriveToPosition extends Command {
   private double target;
-  private double leftVal;
-  private double rightVal;
+
   private double turnVal;
 
   private double angle;
@@ -49,7 +47,7 @@ public class DriveToPosition extends Command {
       @Override
       public void pidWrite(double output) {
         double error = Robot.navx.ahrs.getYaw() - angle;
-        turnVal = -.0035 * error;
+        turnVal = -.001 * error;
 
         Robot.drive.r1.setOpenLoopRampRate(RobotMap.Constants.rampRate);
         Robot.drive.l1.setOpenLoopRampRate(RobotMap.Constants.rampRate);
