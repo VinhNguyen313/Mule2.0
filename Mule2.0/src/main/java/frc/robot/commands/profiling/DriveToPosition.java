@@ -46,7 +46,7 @@ public class DriveToPosition extends Command {
 
       @Override
       public void pidWrite(double output) {
-        double error = Robot.navx.ahrs.getYaw() - angle;
+        double error = Robot.ahrs.getYaw() - angle;
         turnVal = -.001 * error;
 
         Robot.drive.r1.setOpenLoopRampRate(RobotMap.Constants.rampRate);
@@ -69,7 +69,7 @@ public class DriveToPosition extends Command {
   @Override
   protected void initialize() {
     Robot.drive.zeroEncoders();
-    angle = Robot.navx.ahrs.getYaw();
+    angle = Robot.ahrs.getYaw();
     pid.setSetpoint(target);
     pid.enable();
   }

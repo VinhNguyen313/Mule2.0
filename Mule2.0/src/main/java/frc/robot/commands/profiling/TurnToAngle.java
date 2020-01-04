@@ -21,7 +21,7 @@ public class TurnToAngle extends Command {
   public TurnToAngle(double angle) {
     requires(Robot.drive);
     targetAngleDegrees = angle;
-    turnController = new PIDController(.0035, 0.0, 0.001, 0.0, Robot.navx.ahrs, new PIDOutput() {
+    turnController = new PIDController(.0035, 0.0, 0.001, 0.0, Robot.ahrs, new PIDOutput() {
 
       @Override
       public void pidWrite(double output) {
@@ -39,7 +39,7 @@ public class TurnToAngle extends Command {
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    Robot.navx.ahrs.zeroYaw();
+    Robot.ahrs.zeroYaw();
     turnController.setSetpoint(targetAngleDegrees);
     turnController.enable();
   }

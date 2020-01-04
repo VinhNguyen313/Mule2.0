@@ -43,7 +43,7 @@ public class DriveTrain extends Subsystem {
     l2.follow(l1);
     r2.follow(r1);
 
-    r1.setInverted(true);
+    l1.setInverted(true);
 
     r1.setIdleMode(IdleMode.kBrake);
     l1.setIdleMode(IdleMode.kBrake);

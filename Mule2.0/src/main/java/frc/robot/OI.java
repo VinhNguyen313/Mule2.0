@@ -29,11 +29,11 @@ public class OI {
    }
 
    public double getDriveValue() {
-      return -Math.copySign(Math.pow(VortxMath.applyDeadband(main.getTriggerAxis(Hand.kRight) - main.getTriggerAxis(Hand.kLeft), .2),2),VortxMath.applyDeadband(main.getTriggerAxis(Hand.kRight) - main.getTriggerAxis(Hand.kLeft), .2));
+      return Math.copySign(Math.pow(VortxMath.applyDeadband(main.getTriggerAxis(Hand.kRight) - main.getTriggerAxis(Hand.kLeft), .1),2),VortxMath.applyDeadband(main.getTriggerAxis(Hand.kRight) - main.getTriggerAxis(Hand.kLeft), .1));
    }
 
    public double getTurnValue() {
-      double val = VortxMath.limit(VortxMath.applyDeadband(main.getX(Hand.kLeft), .1),-.5,.5);
+      double val = -VortxMath.limit(VortxMath.applyDeadband(main.getX(Hand.kLeft), .1),-.5,.5);
       return Math.copySign(val*val,val);
    }
 }
